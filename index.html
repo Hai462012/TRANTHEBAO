@@ -2,50 +2,163 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trang cá nhân</title>
+  <title>Profile Cá Nhân</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
     body {
-      background: #0f172a;
-      color: white;
-      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      color: white;
     }
 
     .card {
-      background: #020617;
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      width: 300px;
-      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+      width: 360px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 0 30px rgba(56,189,248,0.35);
+      animation: fadeIn 1s ease;
     }
 
-    img {
-      width: 150px;
-      height: 150px;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      margin: auto;
       border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #38bdf8;
+      box-shadow: 0 0 20px rgba(56,189,248,0.7);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border: 3px solid cyan;
     }
 
-    h2 {
-      margin: 15px 0 5px;
+    h1 {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 24px;
     }
 
-    .birth {
-      color: #38bdf8;
+    .subtitle {
+      text-align: center;
       font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 15px;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .info span {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #38bdf8, transparent);
+      margin: 15px 0;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .gallery img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid #38bdf8;
+      transition: 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(56,189,248,0.8);
+    }
+
+    .footer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
     }
   </style>
 </head>
 <body>
+
   <div class="card">
-    <img src="ban.jpg" alt="Ảnh bạn">
-    <h2>Trần Thế Bảo</h2>
-    <div class="birth">🎂 Sinh ngày:07/03/2012</div>
+    <!-- Avatar -->
+    <div class="avatar">
+      <img src="ban.jpg" alt="Ảnh bạn">
+    </div>
+
+    <h1>Trần Thế Bảo</h1>
+    <div class="subtitle">Học sinh</div>
+
+    <div class="info">
+      🎂 <span>Ngày sinh:</span> <span id="birth">01/01/2008</span><br>
+      📅 <span>Tuổi:</span> <span id="age"></span><br>
+      🏫 <span>Lớp:</span> 8A3 – Trường ABC<br>
+      🏠 <span>Địa chỉ:</span> Phường X, Quận Y, TP Z
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Gallery (có thể copy thêm ảnh ban.jpg nếu muốn) -->
+    <div class="gallery">
+      <img src="ban.jpg" alt="">
+      <img src="ban.jpg" alt="">
+      <img src="ban.jpg" alt="">
+    </div>
+
+    <div class="footer">
+      © 2026 • Profile cá nhân
+    </div>
   </div>
+
+  <script>
+    // Tính tuổi tự động
+    const birthStr = document.getElementById("birth").innerText;
+    const [day, month, year] = birthStr.split("/").map(Number);
+    const birthDate = new Date(year, month - 1, day);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    document.getElementById("age").innerText = age + " tuổi";
+  </script>
+
 </body>
 </html>
